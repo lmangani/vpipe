@@ -10,5 +10,6 @@ cLoki log parser [vlang](https://vlang.io/)
 
 ### Usage
 ```
-echo "some=logs are=boring" | vpipe 'logfmt'
+# echo "some=logs are=boring" | vpipe 'logfmt'
+{ "some": "logs", "are": "boring" }
 ```
