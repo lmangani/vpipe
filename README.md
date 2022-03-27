@@ -5,8 +5,9 @@ cLoki log parser [vlang](https://vlang.io/)
 
 
 ### Functions
-* logfmt
-* json
+- [x] logfmt
+- [x] json
+- [ ] regex
 
 ### Usage
 ```
