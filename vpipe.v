@@ -20,32 +20,35 @@ fn main() {
 	for c, fun in funcs {
 	  funcs[c] = fun.trim(' ')
 	}
-	//println(funcs)
 
-        data := os.get_lines()
-        for _, line in data {
-	mut modline := line
+        mut data := os.get_lines()
+        for l, mut line in data {
 		for _, fun in funcs {
 		   if fun.to_lower() == "logfmt" {
-		     modline = logfmt_parse(line)
+		     line = logfmt_parse(line)
+		     data[l] = line
 		   } else if fun.to_lower() == "json" {
-		     modline = json_parse(line)
+		     line = json_parse(line)
+		     data[l] = line
 		   }
 		}
-	        println(modline)
+	        println(line)
         }
 }
 
-
 fn logfmt_parse(line string) string {
 	mut data := map[string]string{}
-	for _, log in line.split(' ') {
+	for _, mut log in line.split(' ') {
 	    pair := log.split('=') {
-		key, value := pair[0].to_lower().trim(' '), pair[1]
-		if value.starts_with('"') && value.ends_with('"') {
-			data[key] = value[1..value.len - 1]
+		if pair.len == 1 {
+			data['raw'] = line
 		} else {
-			data[key] = value
+			key, value := pair[0].to_lower().trim(' '), pair[1]
+			if value.starts_with('"') && value.ends_with('"') {
+				data[key] = value[1..value.len - 1]
+			} else {
+				data[key] = value
+			}
 		}
 	    }
 	}
