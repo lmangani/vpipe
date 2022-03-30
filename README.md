@@ -10,7 +10,13 @@ cLoki log parser [vlang](https://vlang.io/)
 - [x] regex
 
 ### Usage
+##### logfmt
 ```
 # echo "some=logs are=boring" | vpipe 'logfmt'
 { "some": "logs", "are": "boring" }
+```
+##### regex
+```
+echo 'http://www.ciao.mondo/hello/pippo12_/pera.html' | v run vpipe.v 'regex (?P<format>https?)|(?P<format>ftps?)://(?P<token>[\w_]+.)+'
+{"format":"http","token":"html"}
 ```
