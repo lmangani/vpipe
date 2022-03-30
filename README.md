@@ -6,7 +6,7 @@
 experimental pipeline chain parser in [vlang](https://vlang.io/)
 
 #### Status
-* Experimental, Hackish, Amateur. Do _NOT_ use this.
+* Experimental, Hackish, Amateurish. Do _NOT_ use this.
 
 ### Functions
 - [x] logfmt
