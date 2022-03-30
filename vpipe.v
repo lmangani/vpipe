@@ -74,7 +74,6 @@ fn regex_parse(line string, query string) string {
 	if start >= 0 && end >= start {
 		for name in re.group_map.keys() {
 			bits['$name'] = '${re.get_group_by_name(line, name)}'
-			// println('$name = ${re.get_group_by_name(line, name)} - $line')
 		}
 	}
 	return bits.str()
