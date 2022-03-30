@@ -26,13 +26,18 @@ fn main() {
 			if fun.to_lower() == 'logfmt' {
 				line = logfmt_parse(line)
 				data[l] = line
-			} else if fun.to_lower() == 'json' {
-				line = json_parse(line)
-				data[l] = line
+			} else if fun.to_lower().starts_with('json') {
+				q := fun.split(' ')
+				if q.len > 1 {
+					extract := q[1]
+					line = json_parse(line, extract)
+					data[l] = line
+				}
 			} else if fun.to_lower().starts_with('regex') {
 				q := fun.split(' ')
-				if q[1].len > 0 {
-					line = regex_parse(line, q[1])
+				if q.len > 1 {
+					filter := q[1]
+					line = regex_parse(line, filter)
 					data[l] = line
 				}
 			}
@@ -61,9 +66,17 @@ fn logfmt_parse(line string) string {
 	return data.str()
 }
 
-fn json_parse(line string) string {
-	parsed := json2.raw_decode(line) or { line }
-	return parsed.str()
+fn json_parse(line string, extract string) string {
+	mut newline := line.replace("'", '"')
+	parsed := json2.raw_decode(newline) or {
+		return line
+	}
+	if extract.len > 0 {
+		fields := parsed.as_map()
+		return fields[extract].str()
+	} else {
+		return parsed.str()
+	}
 }
 
 fn regex_parse(line string, query string) string {
