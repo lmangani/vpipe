@@ -68,9 +68,7 @@ fn logfmt_parse(line string) string {
 
 fn json_parse(line string, extract string) string {
 	mut newline := line.replace("'", '"')
-	parsed := json2.raw_decode(newline) or {
-		return newline
-	}
+	parsed := json2.raw_decode(newline) or { return newline }
 	if extract.len > 0 {
 		return parsed.as_map()[extract] or { newline }.str()
 	} else {

@@ -3,8 +3,10 @@
 [![vlang-build-pipeline](https://github.com/lmangani/vpipe/actions/workflows/v.yml/badge.svg)](https://github.com/lmangani/vpipe/actions/workflows/v.yml)
 
 # vpipe
-cLoki log parser [vlang](https://vlang.io/)
+experimental pipeline chain parser in [vlang](https://vlang.io/)
 
+#### Status
+* Experimental, Hackish, Amateurish. Do _NOT_ use this.
 
 ### Functions
 - [x] logfmt
@@ -16,6 +18,11 @@ cLoki log parser [vlang](https://vlang.io/)
 ```bash
 echo "some=logs are=boring" | vpipe 'logfmt'
 { "some": "logs", "are": "boring" }
+```
+##### logfmt + json
+```bash
+echo "some=logs are=boring counter=100" | vpipe 'logfmt | json counter'
+100
 ```
 ##### regex
 ```bash
