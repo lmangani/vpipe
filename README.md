@@ -17,16 +17,19 @@ experimental pipeline chain parser in [vlang](https://vlang.io/)
 ##### logfmt
 ```bash
 echo "some=logs are=boring" | vpipe 'logfmt'
+
 { "some": "logs", "are": "boring" }
 ```
 ##### logfmt + json
 ```bash
 echo "some=logs are=boring counter=100" | vpipe 'logfmt | json counter'
+
 100
 ```
 ##### regex
 ```bash
 echo 'http://www.ciao.mondo/pera.html' \
   | vpipe 'regex (?P<format>https?)|(?P<format>ftps?)://(?P<token>[\w_]+.)+'
+
 {"format":"http","token":"html"}
 ```
