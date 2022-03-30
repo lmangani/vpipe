@@ -11,12 +11,13 @@ cLoki log parser [vlang](https://vlang.io/)
 
 ### Usage
 ##### logfmt
-```
-# echo "some=logs are=boring" | vpipe 'logfmt'
+```bash
+echo "some=logs are=boring" | vpipe 'logfmt'
 { "some": "logs", "are": "boring" }
 ```
 ##### regex
-```
-echo 'http://www.ciao.mondo/pera.html' | vpipe 'regex (?P<format>https?)|(?P<format>ftps?)://(?P<token>[\w_]+.)+'
+```bash
+echo 'http://www.ciao.mondo/pera.html' \
+  | vpipe 'regex (?P<format>https?)|(?P<format>ftps?)://(?P<token>[\w_]+.)+'
 {"format":"http","token":"html"}
 ```
