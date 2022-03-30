@@ -17,6 +17,6 @@ cLoki log parser [vlang](https://vlang.io/)
 ```
 ##### regex
 ```
-echo 'http://www.ciao.mondo/hello/pippo12_/pera.html' | v run vpipe.v 'regex (?P<format>https?)|(?P<format>ftps?)://(?P<token>[\w_]+.)+'
+echo 'http://www.ciao.mondo/pera.html' | vpipe 'regex (?P<format>https?)|(?P<format>ftps?)://(?P<token>[\w_]+.)+'
 {"format":"http","token":"html"}
 ```
