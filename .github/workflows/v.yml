@@ -1,0 +1,47 @@
+name: vlang-build-pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  run:
+    name: Run
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Set up V version latest
+      uses: nocturlab/setup-vlang-action@v1
+      with:
+        v-version: latest
+      id: v
+    - name: Build repository app
+      run: v -o vpipe -prod vpipe.v
+    - name: Retrieve v.mod version
+      run: |
+         echo TAG_NAME=$(cat v.mod | grep version | awk -F"'" '{print $2}') >> $GITHUB_ENV
+    - name: Get Time
+      if: github.event_name != 'pull_request'
+      id: time
+      uses: nanzm/get-time-action@v1.1
+      with:
+        timeZone: 0
+        format: 'YYYYMMDDHHmmss'
+    - name: Upload release
+      if: github.event_name != 'pull_request'
+      uses: boxpositron/upload-multiple-releases@1.0.7
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_config: |
+            vpipe
+        tag_name: v${{ steps.time.outputs.time }}
+        release_name: vpipe_v${{ env.TAG_NAME }}_${{ steps.time.outputs.time }}
+        draft: false
+        prerelease: false
+        overwrite: true
