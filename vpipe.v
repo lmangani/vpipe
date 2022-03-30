@@ -14,9 +14,8 @@ fn main() {
 	fp.version('$vm.version')
 	fp.skip_executable()
 
-	// Parse query and split functions
 	query := os.args[1]
-	mut funcs := query.split('|')
+	mut funcs := query.split(' | ')
 	for c, fun in funcs {
 		funcs[c] = fun.trim(' ')
 	}
@@ -68,13 +67,12 @@ fn json_parse(line string) string {
 }
 
 fn regex_parse(line string, query string) string {
-	mut re := regex.regex_opt('$query') or { panic(err) }
-	start, end := re.match_string(line)
 	mut bits := map[string]json2.Any{}
-	if start >= 0 && end >= start {
-		for name in re.group_map.keys() {
-			bits['$name'] = '${re.get_group_by_name(line, name)}'
-		}
+	mut re := regex.regex_opt(query) or { panic(err) }
+	re.debug = 0 // disable log
+	_, _ := re.match_string(line)
+	for name in re.group_map.keys() {
+		bits['$name'] = '${re.get_group_by_name(line, name)}'
 	}
 	return bits.str()
 }
