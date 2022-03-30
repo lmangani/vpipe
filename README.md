@@ -17,6 +17,11 @@ cLoki log parser [vlang](https://vlang.io/)
 echo "some=logs are=boring" | vpipe 'logfmt'
 { "some": "logs", "are": "boring" }
 ```
+##### logfmt + json
+```bash
+echo "some=logs are=boring counter=100" | vpipe 'logfmt | json counter'
+100
+```
 ##### regex
 ```bash
 echo 'http://www.ciao.mondo/pera.html' \
