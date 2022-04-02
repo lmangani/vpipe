@@ -3,7 +3,7 @@
 [![vlang-build-pipeline](https://github.com/lmangani/vpipe/actions/workflows/v.yml/badge.svg)](https://github.com/lmangani/vpipe/actions/workflows/v.yml)
 
 # vpipe
-experimental pipeline chain parser in [vlang](https://vlang.io/)
+experimental log pipeline chain parser in [vlang](https://vlang.io/)
 
 #### Status
 * Experimental, Hackish, Amateurish. Do _NOT_ use this.
