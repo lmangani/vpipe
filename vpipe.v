@@ -16,10 +16,14 @@ fn main() {
 
 	query := os.args[1]
 	mut funcs := query.split(' | ')
-	for c, fun in funcs {
-		funcs[c] = fun.trim(' ')
+	for c, mut fun in funcs {
+		fun = fun.trim(' ')
+		if fun.len > 0 {
+			funcs[c] = fun
+		}
 	}
 
+	mut functions := []string{}
 	mut data := os.get_lines()
 	for l, mut line in data {
 		for _, fun in funcs {
@@ -40,9 +44,42 @@ fn main() {
 					line = regex_parse(line, filter)
 					data[l] = line
 				}
+			} else if fun.to_lower().contains('()') {
+				if fun in functions {
+				} else {
+					functions << fun
+				}
 			}
 		}
-		println(line)
+	}
+
+	if functions.len > 0 {
+		mut bits := map[string]json2.Any{}
+		for _, func in functions {
+			match func {
+				'count()' {
+					bits['count'] = '$data.len'
+				}
+				'avg()' {
+					mut total := 0
+					for _, number in data {
+						total = total + number.int()
+					}
+					average := total / data.len
+					bits['avg'] = '$average'
+				}
+				else {
+					println(data.str())
+				}
+			}
+		}
+		if bits.len > 0 {
+			println(bits.str())
+		}
+	} else {
+		for _, line in data {
+			println(line)
+		}
 	}
 }
 
