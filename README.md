@@ -8,10 +8,14 @@ experimental log pipeline chain parser in [vlang](https://vlang.io/)
 #### Status
 * Experimental, Hackish, Amateurish. Do _NOT_ use this. 💣
 
-### Functions
+### Parsers
 - [x] logfmt
 - [x] json
 - [x] regex
+
+### Dummy Functions
+- [x] count()
+- [x] avg()
 
 ### Usage
 ##### logfmt
