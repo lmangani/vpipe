@@ -8,7 +8,7 @@ import regex
 
 fn main() {
 	mut fp := flag.new_flag_parser(os.args)
-	vm := vmod.decode(@VMOD_FILE) or { panic(err.msg) }
+	vm := vmod.decode(@VMOD_FILE) or { panic(err.msg()) }
 	fp.application('$vm.name')
 	fp.description('$vm.description')
 	fp.version('$vm.version')
